@@ -17,7 +17,8 @@ function resetBackground() {
 }
 
 function draw() {
-    image(capture, 0, 0);
+    // image(capture, 0, 0);
+    background(51);
     capture.loadPixels();
     if (capture.pixels.length > 0) { // don't forget this!
         if (!backgroundPixels) {
@@ -69,6 +70,8 @@ function draw() {
         var leftOffset = -radius;
         var rightOffset = +radius;
         var maximumLength = Math.sqrt(maximumDiff * maximumDiff * 2);
+
+        var vectors = [];
         for (var y = radius; y + radius < h; y += stepSize) {
             for (var x = radius; x + radius < w; x += stepSize) {
                 var i = y * w + x;
@@ -82,6 +85,10 @@ function draw() {
                     var right = motionHistoryImage[i + rightOffset];
                     dx = right - left;
                     dy = down - up;
+                    vectors.push({
+                      dx: dx,
+                      dy: dy
+                    })
                     // ignore big "motion edges"
                     if (dx > maximumDiff || dy > maximumDiff ||
                         -dx > maximumDiff || -dy > maximumDiff) {
@@ -98,10 +105,14 @@ function draw() {
                 line(x + dx, y + dy, x + arrowWidth * dy, y - arrowWidth * dx);
             }
         }
+        if (vectors.length > 1){
+          console.log(vectors);
+        }
     }
 
     if (select('#showRaw').checked()) {
-        capture.updatePixels();
-        image(capture, 0, 0, 640, 480);
+        // capture.updatePixels();
+        // image(capture, 0, 0, 640, 480);
     }
+
 }
