@@ -1,10 +1,24 @@
 var capture;
 var motionHistoryImage;
-var w = 640,
-    h = 480;
+var w = 1280,
+    h = 720;
+
+var constraints = {
+	video: {
+		mandatory: {
+			minWidth: w,
+			minHeight: h
+		},
+		optional: [{ maxFrameRate: 10 }]
+	},
+	audio: false
+};
 
 function setup() {
-    capture = createCapture(VIDEO);
+    // capture = createCapture(VIDEO);
+		capture = createCapture(constraints, function(stream) {
+			console.log(stream);
+		});
     createCanvas(w, h);
     capture.size(w, h);
     capture.hide();
@@ -17,8 +31,8 @@ function resetBackground() {
 }
 
 function draw() {
-    // image(capture, 0, 0);
-    background(51);
+    image(capture, 0, 0);
+    // background(51);
     capture.loadPixels();
     if (capture.pixels.length > 0) { // don't forget this!
         if (!backgroundPixels) {
@@ -32,6 +46,7 @@ function draw() {
         var sumSquaredThreshold = thresholdAmount * (255 * 255) * 3;
         var iRgb = 0,
             iGray = 0;
+
         for (var y = 0; y < h; y++) {
             for (var x = 0; x < w; x++) {
                 var rdiff = pixels[iRgb + 0] - backgroundPixels[iRgb + 0];
@@ -97,14 +112,15 @@ function draw() {
                         dy *= rescale;
                         if (dx && dy){
                           vectors.push({
-                            dx: dx,
-                            dy: dy
+                            x: x,
+                            y: y
                           })
+                          ellipse(x,y,4,4);
                         }
                     }
                 }
-                line(x + dx, y + dy, x - arrowWidth * dy, y + arrowWidth * dx);
-                line(x + dx, y + dy, x + arrowWidth * dy, y - arrowWidth * dx);
+                // line(x + dx, y + dy, x - arrowWidth * dy, y + arrowWidth * dx);
+                // line(x + dx, y + dy, x + arrowWidth * dy, y - arrowWidth * dx);
             }
         }
         // if (vectors.length > 1){
@@ -113,8 +129,7 @@ function draw() {
     }
 
     if (select('#showRaw').checked()) {
-        // capture.updatePixels();
-        // image(capture, 0, 0, 640, 480);
+        capture.updatePixels();
+        image(capture, 0, 0, w, h);
     }
-
 }
