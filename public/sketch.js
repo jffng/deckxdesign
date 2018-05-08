@@ -1,3 +1,4 @@
+var socket = io();
 var capture;
 var motionHistoryImage;
 var w = 1280,
@@ -86,7 +87,7 @@ function draw() {
         var rightOffset = +radius;
         var maximumLength = Math.sqrt(maximumDiff * maximumDiff * 2);
 
-        var vectors = [];
+        var coords = [];
         for (var y = radius; y + radius < h; y += stepSize) {
             for (var x = radius; x + radius < w; x += stepSize) {
                 var i = y * w + x;
@@ -111,7 +112,7 @@ function draw() {
                         dx *= rescale;
                         dy *= rescale;
                         if (dx && dy){
-                          vectors.push({
+                          coords.push({
                             x: x,
                             y: y
                           })
@@ -123,9 +124,10 @@ function draw() {
                 // line(x + dx, y + dy, x + arrowWidth * dy, y - arrowWidth * dx);
             }
         }
-        // if (vectors.length > 1){
-        //   console.log(vectors);
-        // }
+        if (coords.length > 1){
+          socket.emit('coords', coords);
+          // console.log(vectors);
+        }
     }
 
     if (select('#showRaw').checked()) {
