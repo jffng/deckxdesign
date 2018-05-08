@@ -85,10 +85,6 @@ function draw() {
                     var right = motionHistoryImage[i + rightOffset];
                     dx = right - left;
                     dy = down - up;
-                    vectors.push({
-                      dx: dx,
-                      dy: dy
-                    })
                     // ignore big "motion edges"
                     if (dx > maximumDiff || dy > maximumDiff ||
                         -dx > maximumDiff || -dy > maximumDiff) {
@@ -99,15 +95,21 @@ function draw() {
                         var rescale = (maximumLength - length) / length;
                         dx *= rescale;
                         dy *= rescale;
+                        if (dx && dy){
+                          vectors.push({
+                            dx: dx,
+                            dy: dy
+                          })
+                        }
                     }
                 }
                 line(x + dx, y + dy, x - arrowWidth * dy, y + arrowWidth * dx);
                 line(x + dx, y + dy, x + arrowWidth * dy, y - arrowWidth * dx);
             }
         }
-        if (vectors.length > 1){
-          console.log(vectors);
-        }
+        // if (vectors.length > 1){
+        //   console.log(vectors);
+        // }
     }
 
     if (select('#showRaw').checked()) {
