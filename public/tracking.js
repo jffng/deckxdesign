@@ -15,13 +15,6 @@ var constraints = {
 	audio: false
 };
 
-function cvReady() {
-    if(!cv || !cv.loaded) return false;
-    if(ready) return true;
-    cvSetup();
-    return true;
-}
-
 function setup() {
     // capture = createCapture(VIDEO);
 		capture = createCapture(constraints, function(stream) {
@@ -146,7 +139,10 @@ function draw() {
 
           rect(x_min, y_min, x_max - x_min, y_max - y_min);
 
-          socket.emit('coords', coords);
+          socket.emit('coords', {
+            x: (x_max - x_min) / 2,
+            y: (y_max - y_min) / 2
+          });
           // console.log(vectors);
         }
     }
