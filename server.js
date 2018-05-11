@@ -13,8 +13,10 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 io.on('connection', function(socket){
   console.log('a user connected');
+
   socket.on('coords', function(data){
     console.log(data);
+    io.sockets.emit('data', data);
   });
 });
 

@@ -143,7 +143,8 @@ function draw() {
             x: (x_max - x_min) / 2,
             y: (y_max - y_min) / 2
           });
-          // console.log(vectors);
+
+        // console.log(xBox);
         }
     }
 
