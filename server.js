@@ -13,6 +13,7 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 
 io.on('connection', function(socket){
   console.log('a user connected');
+
   socket.on('coords', function(data){
     let slices = [];
     for (var i = 0; i < 12; i++){
@@ -29,7 +30,7 @@ io.on('connection', function(socket){
       return s.length > 2
     });
 
-    // TODO: emit slices array to the client
+    io.sockets.emit('data', slices);
   });
 });
 

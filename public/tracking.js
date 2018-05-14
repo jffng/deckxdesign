@@ -145,6 +145,8 @@ function draw() {
           //   y: (y_max - y_min) / 2
           // });
           // console.log(vectors);
+
+        // console.log(xBox);
         }
     }
 
