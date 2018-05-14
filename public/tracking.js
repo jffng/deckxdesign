@@ -125,24 +125,25 @@ function draw() {
             }
         }
         if (coords.length > 1){
-          var x_min = 1200;
-          var y_min = 1200;
-          var x_max = 0;
-          var y_max = 0;
+          // var x_min = 1200;
+          // var y_min = 1200;
+          // var x_max = 0;
+          // var y_max = 0;
 
-          coords.forEach(c => {
-            if (x_min > c.x) x_min = c.x;
-            if (y_min > c.y) y_min = c.y;
-            if (x_max < c.x) x_max = c.x;
-            if (y_max < c.y) y_max = c.y;
-          });
+          // coords.forEach(c => {
+          //   if (x_min > c.x) x_min = c.x;
+          //   if (y_min > c.y) y_min = c.y;
+          //   if (x_max < c.x) x_max = c.x;
+          //   if (y_max < c.y) y_max = c.y;
+          // });
 
-          rect(x_min, y_min, x_max - x_min, y_max - y_min);
+          // rect(x_min, y_min, x_max - x_min, y_max - y_min);
 
-          socket.emit('coords', {
-            x: (x_max - x_min) / 2,
-            y: (y_max - y_min) / 2
-          });
+          socket.emit('coords', coords );
+          // socket.emit('coords', {
+          //   x: (x_max - x_min) / 2,
+          //   y: (y_max - y_min) / 2
+          // });
           // console.log(vectors);
         }
     }

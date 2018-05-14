@@ -14,7 +14,22 @@ app.use('/', express.static(path.join(__dirname, 'public')));
 io.on('connection', function(socket){
   console.log('a user connected');
   socket.on('coords', function(data){
-    console.log(data);
+    let slices = [];
+    for (var i = 0; i < 12; i++){
+      slices.push([]);
+    }
+
+    data.forEach(function(d){
+      let index = Math.floor(d.x / 100);
+      slices[index] ? slices[index].push(Math.floor(d.x / 100)) : slices[index] = [Math.floor(d.x / 100)]
+    })
+
+    slices = slices.map(s => {
+      // if there are more than 2 coordinates where motion has been detected in a single slice, trigger it as active
+      return s.length > 2
+    });
+
+    // TODO: emit slices array to the client
   });
 });
 
