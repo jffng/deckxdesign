@@ -14,11 +14,13 @@
 
     // create renderer
     var render = Render.create({
-        element: document.body,
+        element: document.getElementById('main'),
         engine: engine,
         options: {
-            width: window.innerWidth,
-            height: window.innerHeight,
+            // each screen is 1280px wide plus a 32px bezel between each screen
+            width: (1280 + 32),
+            // each screen is 720px high
+            height: 720,
             background: '#18e80d',
             showAngleIndicator: false,
             wireframes: false
