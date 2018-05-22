@@ -1,4 +1,4 @@
-var socket = io();
+var socket = io.connect('http://frogny-lobby:1234/');
 var capture;
 var motionHistoryImage;
 var w = 1280,
