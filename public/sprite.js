@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var socket = io.connect('http://localhost:3000');
 var camData = [];
 var isTriggered = false;
@@ -130,6 +131,34 @@ mouseConstraint = MouseConstraint.create(engine, {
         stiffness: 0.2,
         render: {
             visible: false
+=======
+    var Engine = Matter.Engine,
+        Render = Matter.Render,
+        Runner = Matter.Runner,
+        Composites = Matter.Composites,
+        Common = Matter.Common,
+        MouseConstraint = Matter.MouseConstraint,
+        Mouse = Matter.Mouse,
+        World = Matter.World,
+        Bodies = Matter.Bodies;
+
+    // create engine
+    var engine = Engine.create(),
+        world = engine.world;
+
+    // create renderer
+    var render = Render.create({
+        element: document.getElementById('main'),
+        engine: engine,
+        options: {
+            // each screen is 1280px wide plus a 32px bezel between each screen
+            width: (1280 + 32),
+            // each screen is 720px high
+            height: 720,
+            background: '#18e80d',
+            showAngleIndicator: false,
+            wireframes: false
+>>>>>>> 0b2862aa926289061a00534478912c576021b1ba
         }
     }
 });

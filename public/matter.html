@@ -35,11 +35,22 @@
         margin: 0;
         padding: 0;
       }
+
+      #main {
+        position: relative;
+        width: calc((1280px + 32px) * 8);
+        height: calc(720px + 32px);
+      }
     </style>
   </head>
   <body>
     <button style="position: absolute; top: 0px" onclick="triggered(c_static, c_move);">go</button>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/lame.js"></script>
+
+    <div id="main">
+      <button style="position: absolute; top: 0px" onclick="triggered()">go</button>
+    </div>
+    <script src="/sprite.js"></script>
   </body>
 </html>
